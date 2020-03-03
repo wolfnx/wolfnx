@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.2',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言在rk3328的Android9.0版本中采用新的wifi芯片realtek 8822cs时出现检测不到WIFI模块的问题，咨询rk之后扔未解决，经过3天的排查尝试终于找到问题的原因，现将问题原因及解决方案记录下来，以便通道中人能避免或者解决此问题。 Kernel: v4.4.179Device: rk3328Platform Version: Android 9.0 出现的问题前期kerne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决RK3328 RealTek 8822CS检测不到WIFI模块问题">
+<meta property="og:url" content="http://yoursite.com/2020/02/13/Rk3328-Android9.0-RealTek-8822CS/index.html">
+<meta property="og:site_name" content="Always going on">
+<meta property="og:description" content="前言在rk3328的Android9.0版本中采用新的wifi芯片realtek 8822cs时出现检测不到WIFI模块的问题，咨询rk之后扔未解决，经过3天的排查尝试终于找到问题的原因，现将问题原因及解决方案记录下来，以便通道中人能避免或者解决此问题。 Kernel: v4.4.179Device: rk3328Platform Version: Android 9.0 出现的问题前期kerne">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs.png">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs_1.png">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs_2.png">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs_3.png">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs_5.png">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs_4.png">
+<meta property="og:image" content="http://image.wolfnx.com/realtek_8822cs_6.png">
+<meta property="article:published_time" content="2020-02-12T19:26:32.000Z">
+<meta property="article:modified_time" content="2020-03-03T17:50:59.687Z">
+<meta property="article:author" content="wolfnx">
+<meta property="article:tag" content="Wifi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://image.wolfnx.com/realtek_8822cs.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/13/Rk3328-Android9.0-RealTek-8822CS/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>解决RK3328 RealTek 8822CS检测不到WIFI模块问题 | Always going on</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Always going on</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/Rk3328-Android9.0-RealTek-8822CS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wolfnx">
+      <meta itemprop="description" content="The real failure is when you choose to give up">
+      <meta itemprop="image" content="http://image.wolfnx.com/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Always going on">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">解决RK3328 RealTek 8822CS检测不到WIFI模块问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-02-13 03:26:32" itemprop="dateCreated datePublished" datetime="2020-02-13T03:26:32+08:00">2020-02-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-04 01:50:59" itemprop="dateModified" datetime="2020-03-04T01:50:59+08:00">2020-03-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/02/13/Rk3328-Android9.0-RealTek-8822CS/" class="leancloud_visitors" data-flag-title="解决RK3328 RealTek 8822CS检测不到WIFI模块问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在rk3328的Android9.0版本中采用新的wifi芯片realtek 8822cs时出现检测不到WIFI模块的问题，咨询rk之后扔未解决，经过3天的排查尝试终于找到问题的原因，现将问题原因及解决方案记录下来，以便通道中人能避免或者解决此问题。</p>
+<p><strong>Kernel</strong>: v4.4.179</br><br><strong>Device</strong>: rk3328</br><br><strong>Platform Version</strong>: Android 9.0</br></p>
+<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>前期kernel的dts配置可以参考rockchip提供的wifi配置文档<strong>Rockchip_Introduction_Android9.0_WIFI_Configuration_CN.pdf</strong></p>
+<p>按照上面文档中描述，识别流程如下：</p>
+<p><img src="http://image.wolfnx.com/realtek_8822cs.png" alt="1"></p>
+<p>开机会对wifi模块上电，并自动进行扫描sdio操作。如果WIFI模块识别成功会在dmesg中抓到如下日志(注意前面的内容可能不同，但红框内是一样的)：<br><img src="http://image.wolfnx.com/realtek_8822cs_1.png" alt="1"></p>
+<p><strong>问题就出在这里，始终抓不到这条日志，那也就意味着，模块并未被扫描到。</strong></p>
+<h3 id="解决的过程"><a href="#解决的过程" class="headerlink" title="解决的过程"></a>解决的过程</h3><ol>
+<li>首先先排查dts和原理图能不能对应上，配置的对不对(经过详细对比，并没有错)</li>
+<li>然后仔细阅读文档、网上搜索以及咨询rk都没找到原因。</li>
+<li>猜测是不是供电问题, 导致这WIFI芯片根本就没起来，通过示波器测量WIFI引脚，但经过测量是有供电的，但又有一点怀疑是不是电压不够。基于这个怀疑，仔细阅读8822s的datasheet,发现一个可疑的地方。<br><img src="http://image.wolfnx.com/realtek_8822cs_2.png" alt="1"><br><img src="http://image.wolfnx.com/realtek_8822cs_3.png" alt="1"><br>datasheet中写的是1.8V和3.3V根据SDIO协议定，SDIO协议又有3个，参考rk的另一个文档<strong>Rockchip_android7.1_wifi_配置明V1.6.pdf</strong>。<br><img src="http://image.wolfnx.com/realtek_8822cs_5.png" alt="1"><br>也就是说SDIO3.0,是1.8V,SDIO是3.3V, 又看了一下8822cs的datasheet。<br><img src="http://image.wolfnx.com/realtek_8822cs_4.png" alt="1"><br>默认写的是1.8V, 也就是默认已经建议使用1.8V了。<br>回去又看了一眼我们板子的原理图，硬件把它给成了3.3V, 并且不止这一个引脚，都给的3.3V, 而且把它给定死了。。。，这怎么搞？</br>
+想通过手动写寄存器把电压改成1.8V, 但不可行，放弃。
+</br>
+既然都是3.3V，理论上它也应该自己就切换到SDIO2.0啊，但它就是不行，你说气人不？陷入僵局，让硬件改板子把电压调成1.8V? 更不可行(重做板子要成本啊，而且这个芯片我们第一次用，都不知道能不能驱动起来，万一改了板还是驱动不起来，那就。。。。搞得人挺崩溃)
+</br>
+
+</li>
+</ol>
+<h3 id="解决的方法"><a href="#解决的方法" class="headerlink" title="解决的方法"></a>解决的方法</h3><p>又重新查资料看看到底怎么回事？找到一个rk的Android7.0的SDIO的配置文档<strong>Rockchip SDMMC SDIO eMMC 开发指南 V1.0-20160630.pdf</strong><br><img src="http://image.wolfnx.com/realtek_8822cs_6.png" alt="1"><br>最要命的就是这条其实写的也是太清楚，但最终确实靠它解决了。<br></br><br>将dts中的这条删除掉，一切OK了，自己切换到SDIO2.0了。<br></br><br>我觉得他应该再加一句，<strong>如果只使用SDIO2.0，不要加这句。</strong>因为我很早就看到这一句了，但未意识到它才是解决问题的关键。</p>
+<h3 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h3><p>一个问题排查了挺长时间，结果解决它的最后只有一句话。同时也提醒自己，写文档的时候，尽量写清楚一点，哪怕多一句废话都成，但如果别人看不明白，会给不知道的人造成很大的麻烦。</p>
+<p>转载请注明出处：<a href="http://www.wolfnx.com/2020/02/13/Rk3328-Android9.0-RealTek-8822CS" target="_blank" rel="noopener">http://www.wolfnx.com/2020/02/13/Rk3328-Android9.0-RealTek-8822CS</a></p>
+<p>作者 : wolfnx<br>邮箱 : <a href="mailto:wolfnx@outlook.com">wolfnx@outlook.com</a><br>邮箱2 : <a href="mailto:lostnx@gmail.com">lostnx@gmail.com</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>���ԭ����������������֧�ֽ������Ҽ�������!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://image.wolfnx.com/wechat-reward-image.jpg" alt="wolfnx WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://image.wolfnx.com/alipay-reward-image.jpg" alt="wolfnx Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Wifi/" rel="tag"># Wifi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/08/AndroidStudioSignApkFail/" rel="next" title="解决AndroidStudio签名apk总是签不上问题。">
+                <i class="fa fa-chevron-left"></i> 解决AndroidStudio签名apk总是签不上问题。
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/27/Rndis-Virtual-Network-Card-Rename/" rel="prev" title="修改Rndis的虚拟网卡名称">
+                修改Rndis的虚拟网卡名称 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDM1MS8xNjg3OA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://image.wolfnx.com/avatar.png"
+                alt="wolfnx" />
+            
+              <p class="site-author-name" itemprop="name">wolfnx</p>
+              <p class="site-description motion-element" itemprop="description">The real failure is when you choose to give up</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wolfnx" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现的问题"><span class="nav-number">2.</span> <span class="nav-text">出现的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决的过程"><span class="nav-number">3.</span> <span class="nav-text">解决的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决的方法"><span class="nav-number">4.</span> <span class="nav-text">解决的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反思"><span class="nav-number">5.</span> <span class="nav-text">反思</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wolfnx</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v4.2.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2020/02/13/Rk3328-Android9.0-RealTek-8822CS/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "4ayePSu9zFfQIVWOLMdGSt7B-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "4ayePSu9zFfQIVWOLMdGSt7B-gzGzoHsz",
+                'X-LC-Key': "by2pw0YlXi5EyhYziFYzqC7q",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

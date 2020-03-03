@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.2',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="技术快速成长典型误区 拜大牛为师 原因：大牛很忙(简单问题google)、大牛不多(最终你也只能提升到他的水平)，主要靠自己。   业务代码一样很牛逼 原因：业务代码一样有技术含量，这点是肯定的，写业务代码只是这个打怪升级路上的一个挑战而已，而且是比较初级的一个挑战。 业务代码都写不好的程序员肯定无法成为技术大牛，但只把业务代码写好的程序员也还不能成为技术大牛   上班太忙没时间自己学习 原因：我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不止代码-阅读总结">
+<meta property="og:url" content="http://yoursite.com/2019/05/12/Codelife/index.html">
+<meta property="og:site_name" content="Always going on">
+<meta property="og:description" content="技术快速成长典型误区 拜大牛为师 原因：大牛很忙(简单问题google)、大牛不多(最终你也只能提升到他的水平)，主要靠自己。   业务代码一样很牛逼 原因：业务代码一样有技术含量，这点是肯定的，写业务代码只是这个打怪升级路上的一个挑战而已，而且是比较初级的一个挑战。 业务代码都写不好的程序员肯定无法成为技术大牛，但只把业务代码写好的程序员也还不能成为技术大牛   上班太忙没时间自己学习 原因：我">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-05-12T03:23:44.000Z">
+<meta property="article:modified_time" content="2019-10-03T13:13:51.382Z">
+<meta property="article:author" content="wolfnx">
+<meta property="article:tag" content="Books">
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/12/Codelife/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>不止代码-阅读总结 | Always going on</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Always going on</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/Codelife/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wolfnx">
+      <meta itemprop="description" content="The real failure is when you choose to give up">
+      <meta itemprop="image" content="http://image.wolfnx.com/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Always going on">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">不止代码-阅读总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-12 11:23:44" itemprop="dateCreated datePublished" datetime="2019-05-12T11:23:44+08:00">2019-05-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-03 21:13:51" itemprop="dateModified" datetime="2019-10-03T21:13:51+08:00">2019-10-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/12/Codelife/" class="leancloud_visitors" data-flag-title="不止代码-阅读总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="技术快速成长"><a href="#技术快速成长" class="headerlink" title="技术快速成长"></a>技术快速成长</h3><h4 id="典型误区"><a href="#典型误区" class="headerlink" title="典型误区"></a>典型误区</h4><ol>
+<li>拜大牛为师<br> 原因：大牛很忙(简单问题google)、大牛不多(最终你也只能提升到他的水平)，主要靠自己。  </li>
+<li>业务代码一样很牛逼<br> 原因：业务代码一样有技术含量，这点是肯定的，写业务代码只是这个打怪升级路上的一个挑战而已，而且是比较初级的一个挑战。<br> <strong>业务代码都写不好的程序员肯定无法成为技术大牛，但只把业务代码写好的程序员也还不能成为技术大牛</strong>  </li>
+<li>上班太忙没时间自己学习<br> 原因：我们身边有那么多的大牛也是在中国这个加班严重环境成长起来的。首先我们应该在工作中学习和提升，因为学以致用或者有实例参考，学习的效果是最好的；其次工作后学习不需要大段时间，而是要挤出时间，利用时间碎片来学习。  </li>
+</ol>
+<h4 id="正确做法"><a href="#正确做法" class="headerlink" title="正确做法"></a>正确做法</h4><ol>
+<li><p>Do more<br> 熟悉整套业务，不单单是自己负责开发的这一部分。<strong>要想有机会，首先你得从人群中冒出来，要想冒出来，你就必须做到与众不同，要做到与众不同，你就要做得更多!</strong></p>
+</li>
+<li><p>Do better<br> 你负责的系统和业务，总有不合理和可以改进的地方,只要你去想，其实总能发现可以改进的地方。  </p>
+</li>
+<li><p>Do exercise(光看不练没有用)  </p>
+<ul>
+<li><p>Learning<br>  系统化，特别是一些基础性的东西JVM 原理、Java 编程、网络编程，HTTP 协议, 最好看一本书全面了解。   再通过google、视频、博客去有针对性的查找一些有疑问的地方，或者一些技巧。  </p>
+</li>
+<li><p>Trying<br>  尝试搭建一些模拟环境，自己写一些测试程序。  </p>
+</li>
+<li><p>Teaching<br>  讲的时候，需要将一个知识点系统化，也需要考虑各种细节，这会促使我们进一步思考和学习。 </p>
+<p>上面都是一些方法论的东西，但真正起决定作用的，其实还是我们对技术的热情和兴趣！ </p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="缩小能力差距"><a href="#缩小能力差距" class="headerlink" title="缩小能力差距"></a>缩小能力差距</h3><p>知识点浩瀚如海，如何完成真正掌握好的知识点慢慢生长，连接，最终组成一张大网至关重要。</p>
+<h4 id="知识-逻辑就基本等于你的能力"><a href="#知识-逻辑就基本等于你的能力" class="headerlink" title="知识+逻辑就基本等于你的能力"></a>知识+逻辑就基本等于你的能力</h4><p>知识之间是可以联系起来的并且像一颗大树一样自我生长，但是当你都没理解透彻，自然没法产生联系，也就不能够自我生长了。<br>好的逻辑又怎么来？ <strong>实践</strong>+<strong>复盘</strong>  </p>
+<p><strong>知识效率</strong>: 纯看理论就能掌握好一门技能，还能举一反三。<br><strong>工程效率</strong>: 大多数普通人都是看点知识，然后结合实践来强化理论，要经过反反复复才能比较好地掌握一个知识。</p>
+<p><strong>知识</strong>: 通用知识和特定知识<br>通用知识： 专业领域去到哪个公司都能通用，碰到后要非常饥渴地扑上去掌握他们。<br>特定知识： 肯定也是需要掌握一些的，特定知识掌握得好的，一般在公司里混得也会比较好。</p>
+<h3 id="如何规划自己的职业发展生涯？"><a href="#如何规划自己的职业发展生涯？" class="headerlink" title="如何规划自己的职业发展生涯？"></a>如何规划自己的职业发展生涯？</h3><p>大部分同学在面对这些问题时，其实是比较迷茫的，也缺少真正可度量的衡量标准。是否能在短期内获得晋升成了大部分人作为“组织是否认可、自己是否认可”的衡量标准了。</p>
+<h4 id="第一阶段：大学毕业3到5年"><a href="#第一阶段：大学毕业3到5年" class="headerlink" title="第一阶段：大学毕业3到5年"></a>第一阶段：大学毕业3到5年</h4><p>毕业后的3到5年内主要都是以学习、积累为主，快速地完成这些基础知识的学习，并能在项目中快速地学以致用。大部分人的实际发展轨迹看，这个阶段发展快的人和正常发展速度的人，差别还不是很大。正常发展速度的同学也仅仅比发展速度快的人慢2-3 年而已。</br></p>
+<p><strong>这个阶段，我们能协调好的资源其实就是自己，更多的是一个“个人贡献者”</strong>，只要把自己管好了，学习计划执行好了，工作高质量做好了就能得到认可。</p>
+<h4 id="第二阶段：大学毕业5到10年"><a href="#第二阶段：大学毕业5到10年" class="headerlink" title="第二阶段：大学毕业5到10年"></a>第二阶段：大学毕业5到10年</h4><p>网上广泛讨论的所谓34+ 岁现象。其实，年龄并不是问题的真正原因。真正的原因还是在于自身“竞争力”是否符合这个年龄所应该具备的。到了这个年龄的人，往往已经<strong>不是“个人贡献者”了，而是“团队贡献者”</strong></p>
+<p>一个管理团队的人，他必须为业务的成功负责。</p>
+<ol>
+<li>能对所负责领域的业务特点、发展趋势、友商竞争分析有很好的洞察？</br></li>
+<li>服务于特定领域的客户，我们需要能了解我们的客户企业架构、业务知识。</br></li>
+<li>作为 TL， 是否有必要能将自己对于市场的洞察转换成业务规划，并能向自己的老板（或者投资人）说清楚、讲明白？并争取到老板的同意，包括资金、人力资源等。</li>
+<li>获得老板支持后，就需要开始带着兄弟们干活了。作为带头人，你看我们是否需要能将业务趋势、客户痛点进行业务建模好让团队的PD、技术都能理解？</li>
+<li>做完业务设计后，开始要带着团队做技术方案设计、接口设计以及编码实现等。</li>
+<li>对于一些有国际化要求的公司，还需要再学习英语吧！</li>
+<li>还需要有个好的身体，还需要经常锻炼，学习科学的健身吧，越是忙的时候，越需要锻炼身体！</li>
+<li>你可能会遇到这些困难<br>与挑战：团队磨合的挑战、技术方案上的争执、平台优先 or 业务优先的博弈、低落的团队氛围、个人的低谷等等。</li>
+</ol>
+<p>作为一个团队贡献者，你可能需要具备这些能力，更可悲的时，当毕业10 年后，突然发现自己不具备这个能力时（比如晋升失败时发现了），所以从现在开始给自己<strong>制定一个严格的学习计划、严格执行，多实践吧！</strong></p>
+<h3 id="技术变化快，如何不被淘汰"><a href="#技术变化快，如何不被淘汰" class="headerlink" title="技术变化快，如何不被淘汰"></a>技术变化快，如何不被淘汰</h3><p>写了这么多年的代码，你是否曾经有过这样的迷茫和困惑——技术发展日新月异，奋力追赶的我们，究竟<strong>是技术的主人还是技术的奴隶</strong>？</p>
+<p><strong>人之所以迷茫往往是找不到工作生活的重心，感受不到工作或生活的价值</strong>，价值？说的大一点就是我改变了世界，说的小一点就是我的所作所为改善了某些问题。程序员的迷茫面、对技术繁杂的无力感，无法看清从业务到软件架构的价值链条，无法清楚定位自己在分工体系的位置，<strong>处理不好自身与技术、业务的关系</strong>,很多程序员打心底不喜欢业务，宁愿从事框架工具、技术组件研究的相关事情，<strong>阉割了自己能够发现业务价值的能力</strong>，而过多关注新技术对职场竞争力的价值。这也就是我们面对繁杂技术，而产生技术学习焦虑症的根本原因。</p>
+<ol>
+<li><p><strong>业务</strong>：指某种有目的的工作或工作项目，业务的目的就是解决人类社会与吃喝住行息息相关的领域问题，赢利点。</p>
+</li>
+<li><p><strong>技术</strong>: 解决问题的工具和手段。</p>
+</li>
+<li><p><strong>软件系统</strong>：支撑业务功能、提供服务能力。</p>
+</li>
+</ol>
+<p><strong>反思自己的工作学习是否切实在解决领域的业务问题。</strong></p>
+<p>很多面试的候选人在被问及他所开发的系统采用什么架构的问题时，只会罗列出一些技术组件、技术框架等技术要素，这样看来其根本没有理清架构的深层含义。也有一些架构师只专注对底层技术的研究，以为打造一个卓越的系统是非常牛逼的事情，可是他忽略了软件系统的价值是以解决业务问题的能力、支撑业务增长的能力为衡量标准，所以最后生产出了很多对组织，对业务没有帮助的系统。</p>
+<h4 id="成本与收益"><a href="#成本与收益" class="headerlink" title="成本与收益"></a>成本与收益</h4><p><strong>基于成本与收益的关系去思考自己每一项技能的价值</strong>，学习新的有价值的技能，甚至在工作中基于成本与收益的考量选择合适的技术。逻辑不大发生变化的地方，没有必要去做过多的设计，应用各种花俏的设计模式等浪费时间。这样我们才能成为技术的主人。</p>
+<h4 id="架构目标需要适应业务的发展"><a href="#架构目标需要适应业务的发展" class="headerlink" title="架构目标需要适应业务的发展"></a>架构目标需要适应业务的发展</h4><p>一定要让架构适应当前业务目标，不要过度设计，要审时度势，否则浪费资源，增加成本，<strong>合适</strong>最重要。</p>
+<h4 id="分工"><a href="#分工" class="headerlink" title="分工"></a>分工</h4><p>程序员的迷茫因为长期埋没于软件世界的浩大的分工体系中，每个人都只站在自己的立场。我们不能只关注着做为流水工人的价值要求，看不到生态链最顶端的价值。<strong>职位越高的人关注的价值也就越高。</strong></p>
+<h4 id="从价值出发－找寻学习与工作的新思路"><a href="#从价值出发－找寻学习与工作的新思路" class="headerlink" title="从价值出发－找寻学习与工作的新思路"></a>从价值出发－找寻学习与工作的新思路</h4><ol>
+<li>明确自身的业务相关主体。</li>
+<li>向前一步，为更大的价值负责。</li>
+<li>像架构师一样思考，用价值找寻重心。</li>
+<li>学会连接，构建体系。</li>
+</ol>
+<h3 id="如何在阿里技术面试中脱颖而出？"><a href="#如何在阿里技术面试中脱颖而出？" class="headerlink" title="如何在阿里技术面试中脱颖而出？"></a>如何在阿里技术面试中脱颖而出？</h3><h4 id="招什么样的人？"><a href="#招什么样的人？" class="headerlink" title="招什么样的人？"></a>招什么样的人？</h4><ol>
+<li><p><strong>技能</strong>： 工作项目经验，以及解决疑难问题的能力，这是最基本的要求，是<strong>很好的完成，不是仅仅完成</strong>。</p>
+</li>
+<li><p><strong>潜力</strong>： 对计算机相关的专业的知识体系是不是完整，，基础是不是扎实，平常是不是喜欢钻研，这几年走下来，沉淀的速度如何。<strong>过去的优秀经历才能给未来背书</strong>。</p>
+</li>
+<li><p><strong>软实力</strong>： 包含了性格，执行力，领导力等方方面面，它代表了候选人是否能快速融入团队，拿到结果，带领团队攻城拔寨，激励和影响身边的人变得更加优秀等等。 <strong>你招的人是不是比团队中同一等级中50% 的同学优秀</strong>。</p>
+</li>
+</ol>
+<h4 id="面试的方法"><a href="#面试的方法" class="headerlink" title="面试的方法"></a>面试的方法</h4><ul>
+<li><p><strong>不要问</strong>知道性的问题比如问知不知道这个 API 干什么的，怎么调用，这个命令怎么用的，知道性的知识，google一下或者认真看下文档就应该知道。</p>
+</li>
+<li><p><strong>不要问</strong>一些特别复杂的问题比如问一个特别复杂的算法，问一个很抽象的大问题，短时间内很难给予回答。</p>
+</li>
+<li><p><strong>不要问</strong>一些假设性的问题假设你参与了这个项目，你觉得哪几个地方需要优化。</p>
+</li>
+</ul>
+<p><strong>不要在面试中试图证明别人不如自己，毫无意义，人无完人，总有覆盖不到的地方</strong></p>
+<ul>
+<li><p><strong>应该问</strong>已经发生的事，看工作中积累是什么，有多深。</p>
+</li>
+<li><p><strong>应该问</strong>解决问题的思路。</p>
+</li>
+<li><p><strong>应该少问多听</strong>因为大家的知识体系不太一样，成长环境也不同，直接这么问起来很难就找到面试者的优点，所以尽量让应试者自己陈述，然后以学习和交流的心态针对陈述中存疑的地方再进行发问，会更容易让应试者放松，也更容易让应试者更全面的表达自己。</p>
+</li>
+</ul>
+<h4 id="STAR-原则"><a href="#STAR-原则" class="headerlink" title="STAR 原则"></a>STAR 原则</h4><p>  处境： 在什么样的环境下。</br><br>  任务:  接到了什么任务。</br><br>  行动:  具体怎么落地。</br><br>  结果:  拿到了什么结果。</br></p>
+<h4 id="假的STAR回答"><a href="#假的STAR回答" class="headerlink" title="假的STAR回答"></a>假的STAR回答</h4><ul>
+<li><p>描述含糊不清：</br><br>效果好是哪里好，有什么度量的标准？一致好评的体现是在具体KPI 还是比如团队有个什么奖励之类的。</p>
+</li>
+<li><p>只表达态度和看法：</br><br>  我觉得线上稳定性非常重要，应该重点解决和持续跟进。没有后面具体解决方案，很难让人令人信服。</p>
+</li>
+<li><p>假设式描述：</br><br>  如果我来做这件事情，我会1234 怎么怎么样。如果只是看思路还好，但是如果说的天花乱坠，这个时候要               警惕了，毕竟说和做之前的差异是很大的。</p>
+</li>
+</ul>
+<h4 id="鉴别方式"><a href="#鉴别方式" class="headerlink" title="鉴别方式"></a>鉴别方式</h4><ul>
+<li><p>更多的关心What/How/Why</br><br>  做了什么事情，具体做的方案1234 几步，为什么要这么做, 最早肯定什么都没, 每个阶段不太一样，关注的重点也不一样，刨根问题问一问，会了解是不是真的做过这件事情。</p>
+</li>
+<li><p>细节！细节！细节！</br><br>  很多关键节点的细节很重要，比如网络库的优化。选择依据是什么？当时遇到了什么其他的坑没有？你自己的做法有什么缺陷？</p>
+</li>
+</ul>
+<h4 id="其他Tips"><a href="#其他Tips" class="headerlink" title="其他Tips"></a>其他Tips</h4><ul>
+<li>你在面试别人，别人也在选择你</li>
+<li>为未来招聘而不是现在</li>
+<li>面试是一面镜子</li>
+</ul>
+<h4 id="技术人如何不断成长？"><a href="#技术人如何不断成长？" class="headerlink" title="技术人如何不断成长？"></a>技术人如何不断成长？</h4><p>如果现在是我们去找工作，这个市场或者团队更需要什么样的人？</p>
+<p>到底要成为什么样的人? 跟你的职业规划很有关系, <strong>大公司，偏向一专多能的T型人才 , 小公司：更喜欢全栈</strong>。是想在大公司成就一番事业，还是出去闯荡，你点的技能树肯定是不一样的。</p>
+<ul>
+<li>经验丰富，知识体系完整。</br><br>  经验能解决实际的问题，另外知识体系可以让你在遇到新的问题时举一反三。    </li>
+<li>保持良好的习惯，不忘总结和提升。</br><br>  既然我每次面试别人都问你最近有研究什么新的技术或者看到什么有趣的文章没有的，那我自己是不是能这样要求自己呢？不积跬步无以至千里，贵在坚持积累。</li>
+</ul>
+<h3 id="使用开源项目的正确姿势，血和泪的总结"><a href="#使用开源项目的正确姿势，血和泪的总结" class="headerlink" title="使用开源项目的正确姿势，血和泪的总结"></a>使用开源项目的正确姿势，血和泪的总结</h3><p>DRY，Don’t repeat yourself(不要重复造轮子)</p>
+<p>开源项目主要目的是共享，其实就是为了让大家不要重复造轮子，尤其是在互联网这样一个快速发展的领域，速度就是生命，引入开源项目，可以节省大量的人力和时间，大大加快业务的发展速度，何乐而不为呢？</p>
+<p>虽然DRY 原则摆在那里，但实际上开源项目反而是最不遵守DRY原则。相似的轮子很多！相似轮子太多，选择就是让人头疼的问题了。<strong>不要重复发明轮子，但要找到合适的轮子！</strong>，你开的是保时捷，可别找个拖拉机的轮子。</p>
+<h4 id="选：如何选择一个开源项目？"><a href="#选：如何选择一个开源项目？" class="headerlink" title="选：如何选择一个开源项目？"></a>选：如何选择一个开源项目？</h4><ol>
+<li><p>聚焦是否满足业务？</br><br> 我们的经验是聚焦于是否满足业务，而不需要过于关注开源方案是否牛逼。</p>
+<p> 简单来说：如果你的业务要求1000 TPS，那么一个20000TPS 和50000TPS的方案是没有区别的。有的人可能会担心我TPS不断上涨怎么办？其实不用担心，我们的架构会不断演进的，等到真的需要这么高的时候我们再来架构重构，记住：不要过早优化，过早优化是万恶之源 ——《 UNIX 编程哲学》</p>
+</li>
+<li><p>聚焦是否成熟</br><br> 千万不要以为作者牛逼就没有bug，Windows、Linux、MySQL 的开发者都是顶级的开发者吧，一样很多bug。<strong>不成熟的开源项目应用到生产环境，风险极大</strong>。轻则宕机，重则宕机后重启都恢复不了，更严重的是数据丢失都找不回了。</p>
+<p> 可以从以下几个方面考察是否成熟：  </p>
+<ul>
+<li>版本号：一般建议除非特殊情况，否则不要选0.X 版本的，至少选1.X 版本的，版本号越高越好。</li>
+<li>使用的公司数量：一般开源项目都会把采用了自己项目的公司列在主页上，公司越大越好，数量越多越好。</li>
+<li>社区活跃度：看看社区是否活跃，发帖数、回复数、问题处理速度等。</li>
+</ul>
+</li>
+<li><p>聚焦运维能力</br></p>
+<ul>
+<li>开源方案日志是否齐全：有的开源方案日志只有寥寥启动停止几行，出了问题根本无法排查。</li>
+<li>开源方案是否有命令行、管理控制台等维护工具，能够看到系统运行时的情况。</li>
+<li>开源方案是否有故障检测和恢复的能力，例如告警、倒换等。</li>
+</ul>
+</li>
+</ol>
+<h4 id="如何使用开源方案？"><a href="#如何使用开源方案？" class="headerlink" title="如何使用开源方案？"></a>如何使用开源方案？</h4><ol>
+<li><p>深入研究，仔细测试</p>
+<p> 很多人用开源项目，其实是完完全全的“拿来主义”，看了几个Demo，把程序跑起来就开始部署到线上应用，这样是不对的。</p>
+<p> 可以从如下几方面进行研究和测试：</p>
+<ul>
+<li>通读开源项目的设计文档或者白皮书，了解其设计原理</li>
+<li>核对每个配置项的作用和影响，识别出关键配置项</li>
+<li>进行多种场景的性能测试</li>
+<li>进行压力测试，连续跑几天，观察cpu、内存、磁盘io 等指标波动</li>
+<li>进行故障测试：kill，断电、拔网线、重启100 次以上、倒换等</br></br></li>
+</ul>
+</li>
+<li><p>小心应用，灰度发布</br></p>
+<p> 即使你的研究再深入，测试再仔细，也还是要小心为妙，因为再怎么深入的研究，再怎么仔细的测试，都只能降低风险，但不可<br> 能完全覆盖所有线上场景。</p>
+</li>
+<li><p>做好应急，以防万一</p>
+<p> 即使我们前面的工作做得非常完善和充分，尤其是刚开始使用一个开源项目，运气不好的话就可能遇到一个之前全世界的使用者从来没遇到的bug。</p>
+<p> 对于重要的业务或者数据，使用开源项目时，最好有另外一个比较成熟的方案做备份，尤其是数据存储。例如：如果要用MongoDB 或者Redis，可以用MySQL 做备份存储。这样做虽然复杂度和成本高一些，但关键时刻能够救命！</p>
+</li>
+</ol>
+<h4 id="改：如何基于开源项目做二次开发？"><a href="#改：如何基于开源项目做二次开发？" class="headerlink" title="改：如何基于开源项目做二次开发？"></a>改：如何基于开源项目做二次开发？</h4><ol>
+<li><p>保持纯洁，加以包装</br><br> 当我们发现开源项目有的地方不满足我们的需求的时候，自然会有一种去改改的冲动，但是怎么改是个大学问。</p>
+<p> 一种方式是投入几个人从内到外全部改一遍，将其改<br> 造成完全符合我们业务需求。</p>
+<ul>
+<li><p>投入太大，一般来说，redis 这种级别的开源方案，真要自己改，至少要投入2个人，搞个1个月以上。</p>
+</li>
+<li><p>失去了跟随原方案演进的能力：改的太多的话，即使原有开源项目继续演进，我们也无法合并了，因为差异太大。</p>
+</li>
+<li><p><em>建议是不要改动原系统，而是要开发辅助系统*</em>: 监控，报警，负载均衡，管理等。</p>
+<p>如果实在想改到原有系统，建议是直接给开源项目提需求或者bug<br>但弊端就是响应比较缓慢，这个就要看业务紧急程度了，如果实在太急那就只能自己改了，不过不是太急，建议做好备份或者应急手段即可。</p>
+</li>
+</ul>
+</li>
+<li><p>发明你要的轮子</p>
+<p> 这点估计让很多人大跌眼镜，怎么讲了半天，最后又回到了“重复发明你要的轮子”呢？<br> 核心还是一个成本和收益的问题，最主要的问题是：没有完全适合你的轮子！</p>
+</li>
+</ol>
+<h3 id="如何成为一名顶尖的阿里架构师"><a href="#如何成为一名顶尖的阿里架构师" class="headerlink" title="如何成为一名顶尖的阿里架构师"></a>如何成为一名顶尖的阿里架构师</h3><p>在技术圈，架构师一方面是已经被说烂的职务。</p>
+<h4 id="两种架构师"><a href="#两种架构师" class="headerlink" title="两种架构师"></a>两种架构师</h4><ol>
+<li><p>兼职架构师</br><br> 工作五年以上的童鞋，在小团队或者项目中承担非明确的架构师职责，我们做项目或者产品的关键设计和实施；负责产品基础设施；引入新的理念，框架；解决团队中的复杂问题；在团队成员中享有较高的声誉。</p>
+<p> 只有在小部分时间承担了架构师的部分角色。做的绝大部分事情是自己可控的，自己做架构自己做实施或者在小团队中推行。</p>
+</li>
+<li><p>专职架构师</br><br> 他们不负责具体的业务系统，而又对所有的系统负责， 他们也很少直接负责项目，但是职责却要求他们必须对项目要有提前把控，他们面对的是更大的团队，更大的问题域。</p>
+</li>
+</ol>
+<h4 id="专职架构师的职责"><a href="#专职架构师的职责" class="headerlink" title="专职架构师的职责"></a>专职架构师的职责</h4><p>微软对架构师有一个分类：</br></p>
+<ul>
+<li>企业架构师EA(Enterprise Architect)</li>
+<li>基础结构架构师IA(Infrastructure Architect)</li>
+<li>特定技术架构TSA(Technology-Specific Architect)</li>
+<li>解决方案架构师SA (Solution Architect)</li>
+</ul>
+<p>“兼职架构师”可能偏重SA ？专职架构师偏向IA+TSA</p>
+<ol>
+<li><p>职责一：全局的技术规划</br></p>
+<ul>
+<li><p>架构师最重要的产出是架构，架构就是蓝图，就是阿里常说的一张图。</br></p>
+</li>
+<li><p>另外一个重点是全局。全局我的理解是全面+ 格局，全面就是你的技术规划包含各个方面的，在所有的领域都有明确的指引，所以这张图本质是一系列的图的集合；格局上不要只关注短期利益，更多关注长期利益。</p>
+</li>
+</ul>
+</li>
+<li><p>职责二：统一的方法&amp; 规范&amp; 机制</p>
+</li>
+<li><p>职责三：完备的基础构建</br></p>
+<p> 础构建的完备程度决定你的团队装备是小米+步枪，还是飞机+ 大炮。完备的基础构建是否全部作为实际架构的职责，可以因情况而定，比如是否有实体的架构组。但是架构对此应当负责。</p>
+</li>
+<li><p>职责四：落地的规划才是架构</p>
+</li>
+</ol>
+<h4 id="专职架构师的权利"><a href="#专职架构师的权利" class="headerlink" title="专职架构师的权利"></a>专职架构师的权利</h4><p>有人从“架构师的权利和职责”的角度出发推论谁合适做架构师。得出的结论是一个组织的领导者。因为只有他才能调动、协调组织。也有人认为架构师既不能完全负责技术团队，也不能完全游离在技术团队之外。因为负责容易屁股决定脑袋，游离就只能靠个人声望值吃饭了。</p>
+<h4 id="专职架构师的考核"><a href="#专职架构师的考核" class="headerlink" title="专职架构师的考核"></a>专职架构师的考核</h4><h4 id="实施的一些想法"><a href="#实施的一些想法" class="headerlink" title="实施的一些想法"></a>实施的一些想法</h4><ul>
+<li><p>建立“架构语言”</br></p>
+<p>  有了语言才有沟通协作的基础，所谓的“架构语言”并不是什么新的东西，而是产品的业务架构，用例和领域模型；研发的应用架构，组件和时序图； 运维的部署架构等等。</p>
+</li>
+<li><p>是建立“认同体”</br></p>
+<p>  无论是通过技术能力、知识传递、领域组织等各种方式<br>  逐渐形成“认同体”，且在其中形成架构体系对应的人员体系。</p>
+</li>
+<li><p>永远做服务者</br></p>
+<p>  架构师对应的客户是团队的每一个成员，必须始终保持客户<br>第一的心态。架构师存在的目的是成就研发团队每一个同学，我们提供必要的平台、服务和空间，然后彼此成就。</p>
+</li>
+</ul>
+<p><strong>从无到有的是架构；从表到里的是抽象；从粗到细的是设计。</strong></p>
+<h3 id="哪些技术好书值得一读再读？这有一份经典书单"><a href="#哪些技术好书值得一读再读？这有一份经典书单" class="headerlink" title="哪些技术好书值得一读再读？这有一份经典书单"></a>哪些技术好书值得一读再读？这有一份经典书单</h3><p>喜爱读书，就等于把生活中寂寞无聊的时光换成巨大享受的时刻。有了书，各个领域的智慧，几乎触手可及。我们能有幸站在前辈、巨人的肩膀上，看更远的风景。</p>
+<ul>
+<li><p>Effective Software Testing</p>
+<p>  对自动化和持续集成的方案研究比较深入，能直面自动化和持续基础现阶段的一些问题，将软件测试的周期提前到需求，设计和开发的阶段。</p>
+</li>
+<li><p>程序员修炼之道- 从小工到专家</p>
+<p>  阐述方法论的书，关于程序员的自我修养，解决问题的方式、态度和哲学，是向高级程序员和专家进阶的思想启蒙书。</p>
+</li>
+<li><p>设计模式之禅</p>
+<p>  对于设计模式，它能够指导我们编写出可维护性好、可扩展性强的代码。</p>
+<ol>
+<li>第一级是杨铁心：即只知道所有设计模式的概念和定义；</li>
+<li>第二级是丘处机，能够写出相关设计模式的demo；</li>
+<li>第三级是梅超风，能够在现实中找出各个设计模式的原型；</li>
+<li>第四级是郭靖，能够在系统中抽象出来设计模式，并且合适地使用，有效隔离变化点。</li>
+<li>第五级是扫地僧，完全忘记设计模式，但写出来都是设计模式。</li>
+</ol>
+</li>
+<li><p>Spoken Language Processing: A Guide to<br>Theory, Algorithm and System Development</p>
+</li>
+<li><p>机器学习导论</p>
+<p>  一本很好的机器学习入门级教程，非常适用于高年级的本科生、<br>研究生等同学学习机器学习领域的知识。</p>
+</li>
+<li><p>《Reinforcement Learning: An Introduction》</p>
+<p>  本书是强化学习领域的最经典书籍，它既是初学者打好强化学习基础的必读著作，也是强化学习研究者们需要温故而知新的强化学习宝典。</p>
+</li>
+<li><p>Programming Rust</p>
+</li>
+<li><p>Machine Learning: A Probabilistic Perspective</p>
+</li>
+<li><p>Architecture of a Database System</p>
+</li>
+</ul>
+<h3 id="阿里技术大牛最爱的“闲书”，你看过多少？"><a href="#阿里技术大牛最爱的“闲书”，你看过多少？" class="headerlink" title="阿里技术大牛最爱的“闲书”，你看过多少？"></a>阿里技术大牛最爱的“闲书”，你看过多少？</h3><p>工作很忙，效率很重要。以下书籍或许能帮助你提高时间利用率，突破事业瓶颈，打开另一番天地。</p>
+<ul>
+<li><p>从优秀到卓越</p>
+<p>  优秀或许不难，但是做到卓越，除了能力外更重要的是意志和胸怀，乐观且皮实，聪明而自省。</p>
+</li>
+<li><p>为什么精英都是时间控</p>
+<p>  在阿里，人人都聪明；在阿里，人人都努力！那么，在一群又聪明又努力的人当中， 大家拼的是什么？效率！谁能把24 小时用出48 小时的效率？你应该如何分配一天的时间？什么时间应该高速工作？什么时间又应该安心休息？当专注力下降的时候，如何一键修复？每天高强度的工作，你是不是经常会感觉疲倦和体力不支？</p>
+</li>
+<li><p>创新者的窘境</p>
+<p>  从另外一个角度去审视企业的创新，当一个企业价值网络形成后，对整个组织不同阶层的员工都会产生一定的影响，特别是非高层员工他们会依据自己的理解来决定资源的分配，如何在企业中保持破坏性创新的体系是一个值得思考的问题。</p>
+</li>
+<li><p>魔鬼经济学</p>
+<p>  给你一个非常不同的视角和思考方式看待世界和身边的人。</p>
+</li>
+<li><p>孙子兵法</p>
+<p>  这本书在讲的是战略，而且解释的最通透，最精炼，如果只推荐一本书，我觉得还是这本吧，从道，天，地，将，法的角度来观察战略与兵势，是古今中外通用的道理，这本书属于读一本书可以代表一百本书的典范。</p>
+</li>
+<li><p>创造自然</p>
+</li>
+<li><p>浮生六记</p>
+<p>  读《浮生六记》，原是冲着“中国文人心目中最完美的女人”去的。<br>读完之后，对芸的观感一般，却对作者由衷倾佩。</p>
+</li>
+</ul>
+<p>原书链接：<a href="https://files.alicdn.com/tpsservice/4c120d62f85001d864f83ed3dd63cf2b.pdf" target="_blank" rel="noopener">不止代码</a></p>
+<p>转载请注明出处：<a href="http://www.wolfnx.com/2019/05/12/Codelife" target="_blank" rel="noopener">http://www.wolfnx.com/2019/05/12/Codelife</a></p>
+<p>作者 : wolfnx<br>邮箱 : <a href="mailto:wolfnx@outlook.com">wolfnx@outlook.com</a><br>邮箱2 : <a href="mailto:lostnx@gmail.com">lostnx@gmail.com</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>���ԭ����������������֧�ֽ������Ҽ�������!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://image.wolfnx.com/wechat-reward-image.jpg" alt="wolfnx WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://image.wolfnx.com/alipay-reward-image.jpg" alt="wolfnx Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Books/" rel="tag"># Books</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/SignatureAfterFactoryReset/" rel="next" title="Android恢复出厂设置后应用签名突然不对的问题">
+                <i class="fa fa-chevron-left"></i> Android恢复出厂设置后应用签名突然不对的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/07/AdbRoot_AIO-3399C-AI-industry/" rel="prev" title="AIO-3399C-AI industry 打开adb root权限">
+                AIO-3399C-AI industry 打开adb root权限 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDM1MS8xNjg3OA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://image.wolfnx.com/avatar.png"
+                alt="wolfnx" />
+            
+              <p class="site-author-name" itemprop="name">wolfnx</p>
+              <p class="site-description motion-element" itemprop="description">The real failure is when you choose to give up</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wolfnx" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#技术快速成长"><span class="nav-number">1.</span> <span class="nav-text">技术快速成长</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#典型误区"><span class="nav-number">1.1.</span> <span class="nav-text">典型误区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正确做法"><span class="nav-number">1.2.</span> <span class="nav-text">正确做法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩小能力差距"><span class="nav-number">2.</span> <span class="nav-text">缩小能力差距</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#知识-逻辑就基本等于你的能力"><span class="nav-number">2.1.</span> <span class="nav-text">知识+逻辑就基本等于你的能力</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何规划自己的职业发展生涯？"><span class="nav-number">3.</span> <span class="nav-text">如何规划自己的职业发展生涯？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一阶段：大学毕业3到5年"><span class="nav-number">3.1.</span> <span class="nav-text">第一阶段：大学毕业3到5年</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二阶段：大学毕业5到10年"><span class="nav-number">3.2.</span> <span class="nav-text">第二阶段：大学毕业5到10年</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术变化快，如何不被淘汰"><span class="nav-number">4.</span> <span class="nav-text">技术变化快，如何不被淘汰</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#成本与收益"><span class="nav-number">4.1.</span> <span class="nav-text">成本与收益</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构目标需要适应业务的发展"><span class="nav-number">4.2.</span> <span class="nav-text">架构目标需要适应业务的发展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分工"><span class="nav-number">4.3.</span> <span class="nav-text">分工</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从价值出发－找寻学习与工作的新思路"><span class="nav-number">4.4.</span> <span class="nav-text">从价值出发－找寻学习与工作的新思路</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何在阿里技术面试中脱颖而出？"><span class="nav-number">5.</span> <span class="nav-text">如何在阿里技术面试中脱颖而出？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#招什么样的人？"><span class="nav-number">5.1.</span> <span class="nav-text">招什么样的人？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面试的方法"><span class="nav-number">5.2.</span> <span class="nav-text">面试的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STAR-原则"><span class="nav-number">5.3.</span> <span class="nav-text">STAR 原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#假的STAR回答"><span class="nav-number">5.4.</span> <span class="nav-text">假的STAR回答</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#鉴别方式"><span class="nav-number">5.5.</span> <span class="nav-text">鉴别方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他Tips"><span class="nav-number">5.6.</span> <span class="nav-text">其他Tips</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技术人如何不断成长？"><span class="nav-number">5.7.</span> <span class="nav-text">技术人如何不断成长？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用开源项目的正确姿势，血和泪的总结"><span class="nav-number">6.</span> <span class="nav-text">使用开源项目的正确姿势，血和泪的总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#选：如何选择一个开源项目？"><span class="nav-number">6.1.</span> <span class="nav-text">选：如何选择一个开源项目？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用开源方案？"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用开源方案？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改：如何基于开源项目做二次开发？"><span class="nav-number">6.3.</span> <span class="nav-text">改：如何基于开源项目做二次开发？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何成为一名顶尖的阿里架构师"><span class="nav-number">7.</span> <span class="nav-text">如何成为一名顶尖的阿里架构师</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两种架构师"><span class="nav-number">7.1.</span> <span class="nav-text">两种架构师</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#专职架构师的职责"><span class="nav-number">7.2.</span> <span class="nav-text">专职架构师的职责</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#专职架构师的权利"><span class="nav-number">7.3.</span> <span class="nav-text">专职架构师的权利</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#专职架构师的考核"><span class="nav-number">7.4.</span> <span class="nav-text">专职架构师的考核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实施的一些想法"><span class="nav-number">7.5.</span> <span class="nav-text">实施的一些想法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些技术好书值得一读再读？这有一份经典书单"><span class="nav-number">8.</span> <span class="nav-text">哪些技术好书值得一读再读？这有一份经典书单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阿里技术大牛最爱的“闲书”，你看过多少？"><span class="nav-number">9.</span> <span class="nav-text">阿里技术大牛最爱的“闲书”，你看过多少？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wolfnx</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v4.2.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/05/12/Codelife/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "4ayePSu9zFfQIVWOLMdGSt7B-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "4ayePSu9zFfQIVWOLMdGSt7B-gzGzoHsz",
+                'X-LC-Key': "by2pw0YlXi5EyhYziFYzqC7q",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
