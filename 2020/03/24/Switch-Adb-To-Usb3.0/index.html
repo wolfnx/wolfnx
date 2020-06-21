@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.2',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言目前大多数Android的嵌入式系统都会使用TypeC做为adb的调试口，这样很方便。但是在有的时候，迫不得已必须将adb功能切换到USB3.0口，但由于当前的内核USB框架只能支持一个USB口作为Peripheral功能，所以RK3399 SDK默认配置Type-C0作为OTG mode 支持USB Peripheral功能，而Type-C1只支持Hostmode。 注意: 下面介绍的方法只">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将TypeC的adb切换到USB3.0口">
+<meta property="og:url" content="http://yoursite.com/2020/03/24/Switch-Adb-To-Usb3.0/index.html">
+<meta property="og:site_name" content="Always going on">
+<meta property="og:description" content="前言目前大多数Android的嵌入式系统都会使用TypeC做为adb的调试口，这样很方便。但是在有的时候，迫不得已必须将adb功能切换到USB3.0口，但由于当前的内核USB框架只能支持一个USB口作为Peripheral功能，所以RK3399 SDK默认配置Type-C0作为OTG mode 支持USB Peripheral功能，而Type-C1只支持Hostmode。 注意: 下面介绍的方法只">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://image.wolfnx.com/switch-adb-to-usb3.0.png">
+<meta property="article:published_time" content="2020-03-24T14:08:22.000Z">
+<meta property="article:modified_time" content="2020-03-24T15:28:44.531Z">
+<meta property="article:author" content="wolfnx">
+<meta property="article:tag" content="adb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://image.wolfnx.com/switch-adb-to-usb3.0.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/24/Switch-Adb-To-Usb3.0/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>将TypeC的adb切换到USB3.0口 | Always going on</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Always going on</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/Switch-Adb-To-Usb3.0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wolfnx">
+      <meta itemprop="description" content="The real failure is when you choose to give up">
+      <meta itemprop="image" content="http://image.wolfnx.com/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Always going on">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">将TypeC的adb切换到USB3.0口
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-03-24 22:08:22 / Modified: 23:28:44" itemprop="dateCreated datePublished" datetime="2020-03-24T22:08:22+08:00">2020-03-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/framework/" itemprop="url" rel="index"><span itemprop="name">framework</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/24/Switch-Adb-To-Usb3.0/" class="leancloud_visitors" data-flag-title="将TypeC的adb切换到USB3.0口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>目前大多数Android的嵌入式系统都会使用TypeC做为adb的调试口，这样很方便。但是在有的时候，迫不得已必须将adb功能切换到USB3.0口，但由于当前的内核USB框架<strong>只能支持一个USB口作为Peripheral</strong><br>功能，所以RK3399 SDK默认配置Type-C0作为OTG mode 支持USB Peripheral功能，而Type-C1只支持Hostmode。</p>
+<p><strong>注意</strong>: 下面介绍的方法只在rk3399的Industry的7.1版本上实现成功并测试过，其他版本仅做参考，但也大同小异。</p>
+<p><strong>Kernel</strong>: v4.4.126</br><br><strong>Device</strong>: rk3399</br><br><strong>Platform Version</strong>: Android 7.1</br></p>
+<h3 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h3><p>首先，参考原理图如下：</p>
+<p><img src="http://image.wolfnx.com/switch-adb-to-usb3.0.png" alt="1"></p>
+<h3 id="Device-Tree"><a href="#Device-Tree" class="headerlink" title="Device Tree"></a>Device Tree</h3><p>RK提供的dts中默认的rk3399.dtsi，默认</p>
+<pre><code> usbdrd3_0: usb@fe800000 {
+      ...
+    usbdrd_dwc3_0: dwc3@fe800000 {
+        compatible = &quot;snps,dwc3&quot;;
+        dr_mode = &quot;otg&quot;;
+    };
+...
+};
+usbdrd3_1: usb@fe900000 {
+    ...
+    usbdrd_dwc3_1: dwc3@fe900000 {
+        compatible = &quot;snps,dwc3&quot;;
+        dr_mode = &quot;host&quot;;
+    };
+...
+};</code></pre><p>我们需要在自己的dts中修改usbdrd_dwc3_1的dr_mode模式为otg，将usbdrd_dwc3_0的模式修改为host</p>
+<pre><code>&amp;usbdrd_dwc3_0 {
+    status = &quot;okay&quot;;
+    dr_mode = &quot;host&quot;;
+};
+
+&amp;usbdrd_dwc3_1 {
+    status = &quot;okay&quot;;
+    dr_mode = &quot;otg&quot;;
+};</code></pre><h3 id="Drivers"><a href="#Drivers" class="headerlink" title="Drivers"></a>Drivers</h3><ol>
+<li><p>kernel/include/linux/phy/phy.h</p>
+<pre><code>diff --git a/kernel/include/linux/phy/phy.h b/kernel/include/linux/phy/phy.h
+index a3965c3..c0daa66 100644
+--- a/kernel/include/linux/phy/phy.h
++++ b/kernel/include/linux/phy/phy.h
+@@ -36,6 +36,7 @@ enum phy_mode {
+    * @power_on: powering on the phy
+    * @power_off: powering off the phy
+    * @set_mode: set the mode of the phy
++ * @set_vbusdet: usb disconnect of the phy
+    * @reset: resetting the phy
+    * @cp_test: prepare for the phy compliance test
+    * @owner: the module owner containing the ops
+@@ -46,6 +47,7 @@ struct phy_ops {
+        int     (*power_on)(struct phy *phy);
+        int     (*power_off)(struct phy *phy);
+        int     (*set_mode)(struct phy *phy, enum phy_mode mode);
++    int (*set_vbusdet)(struct phy *phy, bool level);
+        int     (*reset)(struct phy *phy);
+        int     (*cp_test)(struct phy *phy);
+        struct module *owner;
+@@ -133,6 +135,7 @@ int phy_exit(struct phy *phy);
+  int phy_power_on(struct phy *phy);
+  int phy_power_off(struct phy *phy);
+  int phy_set_mode(struct phy *phy, enum phy_mode mode);
++int phy_set_vbusdet(struct phy *phy, bool level);
+  int phy_reset(struct phy *phy);
+  int phy_cp_test(struct phy *phy);
+  static inline int phy_get_bus_width(struct phy *phy)
+@@ -247,6 +250,13 @@ static inline int phy_set_mode(struct phy *phy, enum phy_mode mode)
+        return -ENOSYS;
+  }
+
++static inline int phy_set_vbusdet(struct phy *phy, bool level)
++{
++    if (!phy)
++        return 0;
++    return -ENOSYS;
++}
++
+  static inline int phy_reset(struct phy *phy)
+  {
+        if (!phy)</code></pre></li>
+<li><p>kernel/drivers/phy/rockchip/phy-rockchip-inno-usb2.c</p>
+<pre><code>diff --git a/kernel/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/kernel/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+index 66fb407..1f11ae1 100644
+--- a/kernel/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
++++ b/kernel/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+@@ -37,6 +37,8 @@
+ #include &lt;linux/usb/of.h&gt;
+ #include &lt;linux/usb/otg.h&gt;
+ #include &lt;linux/wakelock.h&gt;
++#include &lt;linux/gpio.h&gt;
++#include &lt;linux/of_gpio.h&gt;
+
+ #define BIT_WRITEABLE_SHIFT    16
+ #define SCHEDULE_DELAY        (60 * HZ)
+@@ -250,6 +252,7 @@ struct rockchip_usb2phy_port {
+     struct        delayed_work chg_work;
+     struct        delayed_work otg_sm_work;
+     struct        delayed_work sm_work;
++    struct      delayed_work peripheral_work;
+     struct        regulator *vbus;
+     const struct    rockchip_usb2phy_port_cfg *port_cfg;
+     struct notifier_block    event_nb;
+@@ -816,12 +819,37 @@ static int rockchip_usb2phy_set_mode(struct phy *phy, enum phy_mode mode)
+     return ret;
+ }
+
++static int rockchip_usb2phy_set_vbusdet(struct phy *phy, bool level)
++{
++    struct rockchip_usb2phy_port *rport = phy_get_drvdata(phy);
++    struct rockchip_usb2phy *rphy = dev_get_drvdata(phy-&gt;dev.parent);
++    int ret = 0;
++
++    if (rport-&gt;port_id != USB2PHY_PORT_OTG)
++        return ret;
++
++    if (rphy-&gt;phy_cfg-&gt;reg == 0xe460) {
++        if (level)
++        {
++                ret = regmap_write(rphy-&gt;grf, 0x4518, GENMASK(20, 20) | 0x10);
++        }
++        else
++        {
++                ret = regmap_write(rphy-&gt;grf, 0x4518, GENMASK(20, 20) | 0x00);
++        }
++    }
++
++    return ret;
++}
++
++
+ static const struct phy_ops rockchip_usb2phy_ops = {
+     .init        = rockchip_usb2phy_init,
+     .exit        = rockchip_usb2phy_exit,
+     .power_on    = rockchip_usb2phy_power_on,
+     .power_off    = rockchip_usb2phy_power_off,
+     .set_mode    = rockchip_usb2phy_set_mode,
++    .set_vbusdet = rockchip_usb2phy_set_vbusdet,
+     .owner        = THIS_MODULE,
+ };
+
+@@ -1530,13 +1558,24 @@ static int rockchip_otg_event(struct notifier_block *nb,
+     return NOTIFY_DONE;
+ }
+
++static void rockchip_usb2phy_peripheral_work(struct work_struct *work)
++{
++       struct rockchip_usb2phy_port *rport =
++               container_of(work, struct rockchip_usb2phy_port, peripheral_work.work);
++       struct rockchip_usb2phy *rphy = dev_get_drvdata(rport-&gt;phy-&gt;dev.parent);
++       extcon_set_state(rphy-&gt;edev, EXTCON_USB, true);
++       extcon_sync(rphy-&gt;edev, EXTCON_USB);
++       schedule_delayed_work(&amp;rport-&gt;peripheral_work, 3 * HZ);
++
++}
++
+ static int rockchip_usb2phy_otg_port_init(struct rockchip_usb2phy *rphy,
+                       struct rockchip_usb2phy_port *rport,
+                       struct device_node *child_np)
+ {
+     int ret;
+     int iddig;
+-
++    int gpio_vbus_5v;
+     rport-&gt;port_id = USB2PHY_PORT_OTG;
+     rport-&gt;port_cfg = &amp;rphy-&gt;phy_cfg-&gt;port_cfgs[USB2PHY_PORT_OTG];
+     rport-&gt;state = OTG_STATE_UNDEFINED;
+@@ -1584,6 +1623,32 @@ static int rockchip_usb2phy_otg_port_init(struct rockchip_usb2phy *rphy,
+         rport-&gt;vbus = NULL;
+     }
+
++
++
++    rport-&gt;vbus_always_on =
++        of_property_read_bool(child_np, &quot;rockchip,vbus-always-on&quot;);
++    if (rport-&gt;vbus_always_on)
++    {
++        ret = of_get_named_gpio_flags(child_np, &quot;vbus-5v-gpios&quot;, 0, NULL);
++        if (ret &lt; 0) {
++            printk(&quot;%s() Can not read property vbus-5v-gpio\n&quot;, __FUNCTION__);
++        } else {
++            gpio_vbus_5v = ret;
++            ret = devm_gpio_request(rphy-&gt;dev, gpio_vbus_5v, &quot;vbus-gpio&quot;);
++            if(ret &lt; 0)
++                printk(&quot;%s() devm_gpio_request vbus-gpio request ERROR\n&quot;, __FUNCTION__);
++            ret = gpio_direction_output(gpio_vbus_5v,1);
++            if(ret &lt; 0)
++            printk(&quot;%s() gpio_direction_output vbus-gpio set ERROR\n&quot;, __FUNCTION__);
++        }
++
++        INIT_DELAYED_WORK(&amp;rport-&gt;peripheral_work, rockchip_usb2phy_peripheral_work);
++        schedule_delayed_work(&amp;rport-&gt;peripheral_work, 3 * HZ);
++
++        goto out;
++    }
++
++
+     rport-&gt;mode = of_usb_get_dr_mode_by_phy(child_np, -1);
+     if (rport-&gt;mode == USB_DR_MODE_HOST ||
+         rport-&gt;mode == USB_DR_MODE_UNKNOWN) {
+@@ -1600,9 +1665,6 @@ static int rockchip_usb2phy_otg_port_init(struct rockchip_usb2phy *rphy,
+         goto out;
+     }
+
+-    if (rport-&gt;vbus_always_on)
+-        goto out;
+-
+     wake_lock_init(&amp;rport-&gt;wakelock, WAKE_LOCK_SUSPEND, &quot;rockchip_otg&quot;);
+     INIT_DELAYED_WORK(&amp;rport-&gt;bypass_uart_work,
+               rockchip_usb_bypass_uart_work);</code></pre></li>
+<li><p>kernel/drivers/phy/phy-core.c</p>
+<pre><code>diff --git a/kernel/drivers/phy/phy-core.c b/kernel/drivers/phy/phy-core.c
+index 0587933..8dd548b 100644
+--- a/kernel/drivers/phy/phy-core.c
++++ b/kernel/drivers/phy/phy-core.c
+@@ -387,6 +387,21 @@ int phy_cp_test(struct phy *phy)
+ }
+ EXPORT_SYMBOL_GPL(phy_cp_test);
+
++int phy_set_vbusdet(struct phy *phy, bool level)
++{
++    int ret;
++
++    if (!phy || !phy-&gt;ops-&gt;set_vbusdet)
++        return 0;
++
++    mutex_lock(&amp;phy-&gt;mutex);
++    ret = phy-&gt;ops-&gt;set_vbusdet(phy, level);
++    mutex_unlock(&amp;phy-&gt;mutex);
++
++    return ret;
++}
++EXPORT_SYMBOL_GPL(phy_set_vbusdet);
++
+ /**
+  * _of_phy_get() - lookup and obtain a reference to a phy by phandle
+  * @np: device_node for which to get the phy</code></pre></li>
+<li><p>kernel/drivers/usb/dwc3/dwc3-rockchip.c</p>
+<pre><code>diff --git a/kernel/drivers/usb/dwc3/dwc3-rockchip.c b/kernel/drivers/usb/dwc3/dwc3-rockchip.c
+index 539b89a..7cf9675 100644
+--- a/kernel/drivers/usb/dwc3/dwc3-rockchip.c
++++ b/kernel/drivers/usb/dwc3/dwc3-rockchip.c
+@@ -24,6 +24,7 @@
+ #include &lt;linux/dma-mapping.h&gt;
+ #include &lt;linux/clk.h&gt;
+ #include &lt;linux/clk-provider.h&gt;
++#include &lt;linux/debugfs.h&gt;
+ #include &lt;linux/of.h&gt;
+ #include &lt;linux/of_platform.h&gt;
+ #include &lt;linux/pm_runtime.h&gt;
+@@ -31,6 +32,7 @@
+ #include &lt;linux/freezer.h&gt;
+ #include &lt;linux/iopoll.h&gt;
+ #include &lt;linux/reset.h&gt;
++#include &lt;linux/uaccess.h&gt;
+ #include &lt;linux/usb.h&gt;
+ #include &lt;linux/usb/hcd.h&gt;
+ #include &lt;linux/usb/ch9.h&gt;
+@@ -47,6 +49,7 @@
+ struct dwc3_rockchip {
+     int            num_clocks;
+     bool            connected;
++    bool            disconnect;
+     bool            skip_suspend;
+     bool            suspended;
+     bool            force_mode;
+@@ -56,6 +59,7 @@ struct dwc3_rockchip {
+     struct device        *dev;
+     struct clk        **clks;
+     struct dwc3        *dwc;
++    struct dentry        *root;
+     struct reset_control    *otg_rst;
+     struct extcon_dev    *edev;
+     struct usb_hcd        *hcd;
+@@ -96,6 +100,7 @@ static ssize_t dwc3_mode_store(struct device *device,
+     struct dwc3_rockchip    *rockchip = dev_get_drvdata(device);
+     struct dwc3        *dwc = rockchip-&gt;dwc;
+     enum usb_dr_mode    new_dr_mode;
++    //char            buf[32];
+
+     if (!rockchip-&gt;original_dr_mode)
+         rockchip-&gt;original_dr_mode = dwc-&gt;dr_mode;
+@@ -107,15 +112,21 @@ static ssize_t dwc3_mode_store(struct device *device,
+
+     if (!strncmp(buf, &quot;0&quot;, 1) || !strncmp(buf, &quot;otg&quot;, 3)) {
+         new_dr_mode = USB_DR_MODE_OTG;
++        phy_set_vbusdet(dwc-&gt;usb2_generic_phy, 0);
+     } else if (!strncmp(buf, &quot;1&quot;, 1) || !strncmp(buf, &quot;host&quot;, 4)) {
+         new_dr_mode = USB_DR_MODE_HOST;
++        phy_set_vbusdet(dwc-&gt;usb2_generic_phy, 0);
+     } else if (!strncmp(buf, &quot;2&quot;, 1) || !strncmp(buf, &quot;peripheral&quot;, 10)) {
+         new_dr_mode = USB_DR_MODE_PERIPHERAL;
++        phy_set_vbusdet(dwc-&gt;usb2_generic_phy, 1);
+     } else {
+         dev_info(rockchip-&gt;dev, &quot;illegal dr_mode\n&quot;);
++        phy_set_vbusdet(dwc-&gt;usb2_generic_phy, 0);
+         return count;
+     }
+
++    msleep(200);
++
+     if (dwc-&gt;dr_mode == new_dr_mode) {
+         dev_info(rockchip-&gt;dev, &quot;Same with current dr_mode\n&quot;);
+         return count;
+@@ -378,6 +389,17 @@ static void dwc3_rockchip_otg_extcon_evt_work(struct work_struct *work)
+
+     mutex_lock(&amp;rockchip-&gt;lock);
+
++    if (extcon_get_cable_state_(edev, EXTCON_USB)) {
++        if ((dwc-&gt;link_state == DWC3_LINK_STATE_U3) &amp;&amp; !rockchip-&gt;disconnect) {
++            phy_set_vbusdet(dwc-&gt;usb2_generic_phy, 0);
++            msleep(3000);
++            phy_set_vbusdet(dwc-&gt;usb2_generic_phy, 1);
++            rockchip-&gt;disconnect = true;
++        } else if(dwc-&gt;link_state == DWC3_LINK_STATE_U0) {
++            rockchip-&gt;disconnect = false;
++        }
++    }
++
+     if (rockchip-&gt;force_mode ? dwc-&gt;dr_mode == USB_DR_MODE_PERIPHERAL :
+         extcon_get_cable_state_(edev, EXTCON_USB)) {
+         if (rockchip-&gt;connected)
+@@ -624,6 +646,7 @@ out:
+
+ static int dwc3_rockchip_get_extcon_dev(struct dwc3_rockchip *rockchip)
+ {
++    //int            ret;
+     struct device        *dev = rockchip-&gt;dev;
+     struct extcon_dev    *edev;
+
+@@ -743,6 +766,7 @@ static int dwc3_rockchip_probe(struct platform_device *pdev)
+     struct device        *dev = &amp;pdev-&gt;dev;
+     struct device_node    *np = dev-&gt;of_node, *child;
+     struct platform_device    *child_pdev;
++    //struct usb_hcd        *hcd = NULL;
+
+     unsigned int        count;
+     int            ret;</code></pre></li>
+</ol>
+<h3 id="Device"><a href="#Device" class="headerlink" title="Device"></a>Device</h3><p>device/rockchip/rk3399/init.rk30board.usb.rc</p>
+<pre><code>setprop sys.usb.controller &quot;fe900000.dwc3&quot;</code></pre><h3 id="应用或者framework中执行"><a href="#应用或者framework中执行" class="headerlink" title="应用或者framework中执行"></a>应用或者framework中执行</h3><pre><code>echo peripheral &gt; /sys/devices/platform/usb@fe900000/dwc3_mode</code></pre><p>在Anroid启动后，在adb中执行上面的指令，即可将adb切换到usb3.0口，验证的时候需要使用双公头的usb3.0线。</p>
+<p><strong>注意</strong>: 虽然adb被切换到了usb3.0，但是进入loader刷机模式，还是需要用TypeC来进行刷机。</p>
+<p>转载请注明出处：<a href="http://www.wolfnx.com/2020/03/24/Switch-Adb-To-Usb3.0" target="_blank" rel="noopener">http://www.wolfnx.com/2020/03/24/Switch-Adb-To-Usb3.0</a></p>
+<p>作者 : wolfnx<br>邮箱 : <a href="mailto:wolfnx@outlook.com">wolfnx@outlook.com</a><br>邮箱2 : <a href="mailto:lostnx@gmail.com">lostnx@gmail.com</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Click Me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://image.wolfnx.com/wechat-reward-image.jpg" alt="wolfnx WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://image.wolfnx.com/alipay-reward-image.jpg" alt="wolfnx Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/adb/" rel="tag"># adb</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/19/Add-Service-to-System/" rel="next" title="frameworks中增加自定义服务使其也成为系统服务">
+                <i class="fa fa-chevron-left"></i> frameworks中增加自定义服务使其也成为系统服务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/26/Uboot-Flash-Kernel-From-Usb/" rel="prev" title="Uboo命令行从U盘升级kernel">
+                Uboo命令行从U盘升级kernel <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDM1MS8xNjg3OA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://image.wolfnx.com/avatar.png"
+                alt="wolfnx" />
+            
+              <p class="site-author-name" itemprop="name">wolfnx</p>
+              <p class="site-description motion-element" itemprop="description">The real failure is when you choose to give up</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wolfnx" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件"><span class="nav-number">2.</span> <span class="nav-text">硬件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Device-Tree"><span class="nav-number">3.</span> <span class="nav-text">Device Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Drivers"><span class="nav-number">4.</span> <span class="nav-text">Drivers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Device"><span class="nav-number">5.</span> <span class="nav-text">Device</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用或者framework中执行"><span class="nav-number">6.</span> <span class="nav-text">应用或者framework中执行</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wolfnx</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v4.2.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2020/03/24/Switch-Adb-To-Usb3.0/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "4ayePSu9zFfQIVWOLMdGSt7B-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "4ayePSu9zFfQIVWOLMdGSt7B-gzGzoHsz",
+                'X-LC-Key': "by2pw0YlXi5EyhYziFYzqC7q",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
